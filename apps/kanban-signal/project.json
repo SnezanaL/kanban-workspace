@@ -1,0 +1,59 @@
+{
+  "name": "kanban-signal",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "prefix": "app",
+  "sourceRoot": "apps/kanban-signal/src",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@nx/angular-rspack:rspack",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "target": "web",
+        "compiler": "babel",
+        "rspackConfig": "apps/kanban-signal/rspack.config.ts",
+        "outputPath": "dist/apps/kanban-signal"
+      },
+      "configurations": {
+        "production": {},
+        "development": {}
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve": {
+      "executor": "@nx/angular-rspack:rspack-dev-server",
+      "configurations": {
+        "production": {
+          "buildTarget": "kanban-signal:build:production"
+        },
+        "development": {
+          "buildTarget": "kanban-signal:build:development"
+        }
+      },
+      "defaultConfiguration": "development",
+      "options": {}
+    },
+
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "apps/kanban-signal/jest.config.ts",
+        "tsConfig": "apps/kanban-signal/tsconfig.spec.json"
+      }
+    },
+    "serve-static": {
+      "executor": "@nx/web:file-server",
+      "options": {
+        "buildTarget": "kanban-signal:build",
+        "port": 4200,
+        "staticFilePath": "dist/apps/kanban-signal",
+        "spa": true
+      }
+    }
+  }
+}

@@ -1,0 +1,12 @@
+@if (board$ | async; as board) {
+  <lib-kanban-board 
+    [board]="board"
+    (deleteCard)="onDeleteCard($event)"
+    (addCard)="onAddCard($event)">
+  </lib-kanban-board>
+} @else {
+  <div style="padding: 20px; text-align: center;">
+    <h2>Loading board...</h2>
+  </div>
+}
+<router-outlet></router-outlet>

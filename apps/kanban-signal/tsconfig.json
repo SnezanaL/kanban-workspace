@@ -1,5 +1,14 @@
 {
+  "extends": "../../tsconfig.base.json",
   "compilerOptions": {
+    "strict": true,
+    "noImplicitOverride": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "skipLibCheck": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
     "isolatedModules": true
   },
   "angularCompilerOptions": {
@@ -18,12 +27,5 @@
     {
       "path": "./tsconfig.spec.json"
     }
-  ],
-  "ts-node": {
-    "compilerOptions": {
-      "module": "CommonJS",
-      "moduleResolution": "Node10"
-    }
-  },
-  "extends": "./tsconfig.base.json"
+  ]
 }

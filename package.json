@@ -4,7 +4,18 @@
   "license": "MIT",
   "scripts": {
     "start": "nx serve",
-    "test": "nx test"
+    "test": "nx test",
+    "signal": "nx serve kanban-signal",
+    "ngxs": "nx serve kanban-ngxs",
+    "signal:build": "nx build kanban-signal",
+    "ngxs:build": "nx build kanban-ngxs",
+    "signal:test": "nx test kanban-signal",
+    "ngxs:test": "nx test kanban-ngxs",
+    "shared:test": "nx test shared",
+    "lint": "nx run-many --target=lint --all",
+    "test:all": "nx run-many --target=test --all",
+    "build:all": "nx run-many --target=build --all",
+    "graph": "nx graph"
   },
   "private": true,
   "dependencies": {
@@ -15,6 +26,8 @@
     "@angular/platform-browser": "~20.3.0",
     "@angular/platform-browser-dynamic": "~20.3.0",
     "@angular/router": "~20.3.0",
+    "@ngxs/devtools-plugin": "^20.1.0",
+    "@ngxs/store": "^20.1.0",
     "rxjs": "~7.8.0",
     "zone.js": "~0.15.0"
   },
