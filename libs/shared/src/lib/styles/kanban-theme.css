@@ -1,0 +1,78 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+
+* {
+  @apply box-border;
+}
+
+body {
+  @apply m-0 p-0 font-sans text-gray-900 bg-gray-50 dark:bg-dark-500 dark:text-dark-100;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  @apply font-heading font-semibold;
+}
+
+/* Buttons */
+.btn {
+  @apply inline-flex items-center justify-center rounded-lg font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2;
+}
+
+.btn-lg {
+  @apply px-6 py-3 text-base;
+}
+
+.btn-md {
+  @apply px-4 py-2 text-sm;
+}
+
+.btn-sm {
+  @apply px-3 py-1.5 text-xs;
+}
+
+.btn-primary {
+  @apply bg-primary text-white hover:bg-primary-dark focus:ring-primary;
+}
+
+.btn-secondary {
+  @apply bg-gray-200 text-gray-800 hover:bg-gray-300 focus:ring-gray-400 dark:bg-dark-300 dark:text-dark-100 dark:hover:bg-dark-200 dark:focus:ring-dark-200;
+}
+
+.btn-danger {
+  @apply bg-error text-white hover:bg-error-dark focus:ring-error;
+}
+
+/* Cards */
+.card {
+  @apply bg-white dark:bg-dark-400 dark:text-dark-100 rounded-lg shadow-md p-4;
+}
+
+/* Inputs / fields */
+.input {
+  @apply w-full px-4 py-2 border border-gray-300 dark:border-dark-300 bg-white dark:bg-dark-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent;
+}
+
+.field-label {
+  @apply block text-xs font-medium text-gray-600 dark:text-dark-100 mb-1;
+}
+
+.field-helper {
+  @apply text-xs text-gray-400 dark:text-dark-200 mt-1;
+}
+
+.field-error {
+  @apply text-xs text-error mt-1;
+}
+
+/* Checkbox row (like subtasks) */
+.checkbox-row {
+  @apply flex items-center justify-between px-4 py-2 rounded-lg bg-gray-50 dark:bg-dark-400 text-gray-800 dark:text-dark-100;
+}
+
+.checkbox-row-label {
+  @apply text-sm;
+}

@@ -1,12 +1,28 @@
-@if (board$ | async; as board) {
-  <lib-kanban-board 
-    [board]="board"
-    (deleteCard)="onDeleteCard($event)"
-    (addCard)="onAddCard($event)">
-  </lib-kanban-board>
-} @else {
-  <div style="padding: 20px; text-align: center;">
-    <h2>Loading board...</h2>
+<div class="h-screen flex bg-gray-50 dark:bg-dark-500 text-gray-900 dark:text-dark-100">
+  <lib-kanban-sidebar></lib-kanban-sidebar>
+
+  <div class="flex-1 flex flex-col">
+    @if (boards$ | async; as board) {
+    <lib-kanban-header [boardTitle]="board.title"></lib-kanban-header>
+    } @else {
+    <lib-kanban-header boardTitle="Loading..."></lib-kanban-header>
+    }
+
+    <main class="flex-1 overflow-auto bg-[#F4F7FD] dark:bg-dark-500 p-6">
+      @if (boards$ | async; as board) {
+      <lib-kanban-board
+        [board]="board"
+        (deleteCard)="onDeleteCard($event)"
+        (addCard)="onAddCard($event)"
+      >
+      </lib-kanban-board>
+      } @else {
+      <div class="flex h-full items-center justify-center text-sm text-gray-500">
+        Loading board...
+      </div>
+      }
+
+      <router-outlet></router-outlet>
+    </main>
   </div>
-}
-<router-outlet></router-outlet>
+</div>

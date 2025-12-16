@@ -1,21 +1,25 @@
-export interface KanbanCard {
-  id: string;
+export interface KanbanSubtask {
   title: string;
-  description?: string;
-  assignee?: string;
-  priority?: 'low' | 'medium' | 'high';
-  createdAt: Date;
+  isCompleted: boolean;
+}
+
+export interface KanbanTask {
+  title: string;
+  description: string;
+  status: string;
+  subtasks: KanbanSubtask[];
 }
 
 export interface KanbanColumn {
-  id: string;
-  title: string;
-  cards: KanbanCard[];
-  order: number;
+  name: string;
+  tasks: KanbanTask[];
 }
 
 export interface KanbanBoard {
-  id: string;
-  title: string;
+  name: string;
   columns: KanbanColumn[];
+}
+
+export interface KanbanData {
+  boards: KanbanBoard[];
 }

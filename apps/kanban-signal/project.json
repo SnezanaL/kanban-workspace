@@ -7,22 +7,53 @@
   "tags": [],
   "targets": {
     "build": {
-      "executor": "@nx/angular-rspack:rspack",
+      "executor": "@angular/build:application",
       "outputs": ["{options.outputPath}"],
       "options": {
-        "target": "web",
-        "compiler": "babel",
-        "rspackConfig": "apps/kanban-signal/rspack.config.ts",
-        "outputPath": "dist/apps/kanban-signal"
+        "outputPath": "dist/apps/kanban-signal",
+        "browser": "apps/kanban-signal/src/main.ts",
+        "polyfills": ["zone.js"],
+        "tsConfig": "apps/kanban-signal/tsconfig.app.json",
+        "assets": [
+          {
+            "glob": "**/*",
+            "input": "apps/kanban-signal/public"
+          },
+          {
+            "glob": "**/*",
+            "input": "public",
+            "output": "assets"
+          }
+        ],
+        "styles": ["apps/kanban-signal/src/styles.css"]
       },
       "configurations": {
-        "production": {},
-        "development": {}
+        "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "500kb",
+              "maximumError": "1mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "4kb",
+              "maximumError": "8kb"
+            }
+          ],
+          "outputHashing": "all"
+        },
+        "development": {
+          "optimization": false,
+          "extractLicenses": false,
+          "sourceMap": true
+        }
       },
       "defaultConfiguration": "production"
     },
     "serve": {
-      "executor": "@nx/angular-rspack:rspack-dev-server",
+      "continuous": true,
+      "executor": "@angular/build:dev-server",
       "configurations": {
         "production": {
           "buildTarget": "kanban-signal:build:production"
@@ -31,10 +62,14 @@
           "buildTarget": "kanban-signal:build:development"
         }
       },
-      "defaultConfiguration": "development",
-      "options": {}
+      "defaultConfiguration": "development"
     },
-
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "buildTarget": "kanban-signal:build"
+      }
+    },
     "lint": {
       "executor": "@nx/eslint:lint"
     },

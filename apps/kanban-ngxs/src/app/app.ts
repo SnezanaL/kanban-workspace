@@ -1,30 +1,35 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { AsyncPipe } from '@angular/common';
 import { Store, Select } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { KanbanBoardComponent, KanbanDataService, KanbanBoard } from '@kanban-workspace/shared';
+import { KanbanHeaderComponent } from '@kanban-workspace/shared/lib/components/kanban-header/kanban-header.component';
+import { KanbanSidebarComponent } from '@kanban-workspace/shared/lib/components/kanban-sidebar/kanban-sidebar.component';
 import { KanbanState } from './store/kanban.state';
 import { SetBoard, AddCard, DeleteCard } from './store/kanban.actions';
 
 @Component({
-  imports: [KanbanBoardComponent, RouterModule, AsyncPipe],
+  imports: [
+    KanbanBoardComponent,
+    KanbanHeaderComponent,
+    KanbanSidebarComponent,
+    RouterModule,
+    AsyncPipe,
+  ],
   selector: 'app-root',
   templateUrl: './app.html',
   styleUrl: './app.css',
 })
 export class App implements OnInit {
+  private store = inject(Store);
+  private dataService = inject(KanbanDataService);
   protected title = 'Kanban NGXS App';
-  
-  @Select(KanbanState.board) board$!: Observable<KanbanBoard | null>;
 
-  constructor(
-    private store: Store,
-    private dataService: KanbanDataService
-  ) {}
+  boards$ = this.store.select(KanbanState.board);
 
   ngOnInit(): void {
-    // Učitaj mock podatke
+    // Load mock data
     const mockBoard = this.dataService.getMockBoard();
     this.store.dispatch(new SetBoard(mockBoard));
   }
@@ -38,7 +43,7 @@ export class App implements OnInit {
       id: `card-${Date.now()}`,
       title: 'New Card',
       description: 'Add description here',
-      createdAt: new Date()
+      createdAt: new Date(),
     };
     this.store.dispatch(new AddCard(columnId, newCard));
   }

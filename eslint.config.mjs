@@ -1,6 +1,6 @@
 import baseConfig from './eslint.base.config.mjs';
 import nx from '@nx/eslint-plugin';
-
+import prettierPlugin from 'eslint-plugin-prettier';
 export default [
   ...baseConfig,
   {
@@ -47,5 +47,23 @@ export default [
     files: ['**/*.html'],
     // Override or add rules here
     rules: {},
+  },
+  {
+    files: ['**/*.{ts,js,json,html}'],
+    plugins: {
+      prettier: prettierPlugin,
+    },
+    rules: {
+      'prettier/prettier': [
+        'error',
+        {
+          singleQuote: true,
+          printWidth: 100,
+          tabWidth: 2,
+          semi: true,
+          endOfLine: 'auto',
+        },
+      ],
+    },
   },
 ];

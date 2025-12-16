@@ -8,7 +8,8 @@
     "lib": ["es2020", "dom"],
     "baseUrl": ".",
     "paths": {
-      "@kanban-workspace/shared": ["libs/shared/src/index.ts"]
+      "@kanban-workspace/shared": ["libs/shared/src/index.ts"],
+      "@kanban-workspace/shared/*": ["libs/shared/src/*"]
     }
   },
   "exclude": ["node_modules", "tmp"]
