@@ -23,7 +23,7 @@ import { KanbanTask } from '../../models/kanban.models';
       }
       <div class="card-footer">
         @if (card().assignee) {
-        <span class="assignee">👤 {{ card(). }}</span>
+        <span class="assignee">👤 {{ card().assignee }}</span>
         } @if (card().priority) {
         <span class="priority">{{ card().priority }}</span>
         }

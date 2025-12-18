@@ -5,7 +5,7 @@
   "scripts": {
     "start": "nx serve",
     "test": "nx test",
-    "signal": "nx serve kanban-signal",
+    "signal": "node tools/clean-vite-ssr-cache.mjs && nx serve kanban-signal",
     "ngxs": "nx serve kanban-ngxs",
     "signal:build": "nx build kanban-signal",
     "ngxs:build": "nx build kanban-ngxs",
@@ -15,7 +15,9 @@
     "lint": "nx run-many --target=lint --all",
     "test:all": "nx run-many --target=test --all",
     "build:all": "nx run-many --target=build --all",
-    "graph": "nx graph"
+    "graph": "nx graph",
+    "api": "node backend/server.js",
+    "dev": "concurrently \"npm:api\" \"npm:signal\""
   },
   "private": true,
   "dependencies": {
@@ -64,6 +66,7 @@
     "@typescript-eslint/utils": "^8.40.0",
     "angular-eslint": "^20.3.0",
     "autoprefixer": "^10.4.22",
+    "concurrently": "^9.2.1",
     "eslint": "^9.8.0",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-playwright": "^1.6.2",
@@ -72,6 +75,8 @@
     "jest-environment-jsdom": "^29.7.0",
     "jest-preset-angular": "~14.6.1",
     "jest-util": "^29.7.0",
+    "json-server": "0.17.4",
+    "json-server-auth": "^2.1.0",
     "nx": "22.2.1",
     "postcss": "^8.5.6",
     "prettier": "^2.8.8",

@@ -1,0 +1,143 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "email": "demo@demo.com",
+      "password": "demo",
+      "name": "Demo User"
+    }
+  ],
+  "issues": [
+    {
+      "id": 1,
+      "title": "Login bug",
+      "status": "open",
+      "priority": "high",
+      "assigneeId": 1,
+      "createdAt": "2025-12-01T10:00:00Z"
+    }
+  ],
+  "boards": [
+    {
+      "name": "Platform Launch",
+      "columns": [
+        {
+          "name": "Todo",
+          "tasks": [
+            {
+              "title": "Build UI for onboarding flow",
+              "description": "",
+              "status": "Todo",
+              "priority": "medium",
+              "createdAt": "2025-12-01T10:00:00Z",
+              "assigneeId": 1,
+              "subtasks": [
+                { "title": "Sign up page", "isCompleted": true, "assigneeId": 1 },
+                { "title": "Sign in page", "isCompleted": false, "assigneeId": 1 },
+                { "title": "Welcome page", "isCompleted": false, "assigneeId": 1 }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Doing",
+          "tasks": [
+            {
+              "title": "Design settings and search pages",
+              "description": "",
+              "status": "Doing",
+              "priority": "medium",
+              "createdAt": "2025-12-02T10:00:00Z",
+              "assigneeId": 1,
+              "subtasks": [
+                { "title": "Settings - Account page", "isCompleted": true, "assigneeId": 1 },
+                { "title": "Settings - Billing page", "isCompleted": true, "assigneeId": 1 },
+                { "title": "Search page", "isCompleted": false, "assigneeId": 1 }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Done",
+          "tasks": [
+            {
+              "title": "Conduct 5 wireframe tests",
+              "description": "Ensure the layout continues to make sense and we have strong buy-in from potential users.",
+              "status": "Done",
+              "priority": "low",
+              "createdAt": "2025-12-03T10:00:00Z",
+              "assigneeId": 1,
+              "subtasks": [
+                {
+                  "title": "Complete 5 wireframe prototype tests",
+                  "isCompleted": true,
+                  "assigneeId": 1
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Marketing Plan",
+      "columns": [
+        {
+          "name": "Todo",
+          "tasks": [
+            {
+              "title": "Plan Product Hunt launch",
+              "description": "",
+              "status": "Todo",
+              "priority": "high",
+              "createdAt": "2025-12-04T10:00:00Z",
+              "assigneeId": 1,
+              "subtasks": [
+                { "title": "Find hunter", "isCompleted": false, "assigneeId": 1 },
+                { "title": "Gather assets", "isCompleted": false, "assigneeId": 1 },
+                { "title": "Draft product page", "isCompleted": false, "assigneeId": 1 },
+                { "title": "Notify customers", "isCompleted": false, "assigneeId": 1 },
+                { "title": "Notify network", "isCompleted": false, "assigneeId": 1 },
+                { "title": "Launch!", "isCompleted": false, "assigneeId": 1 }
+              ]
+            }
+          ]
+        },
+        { "name": "Doing", "tasks": [] },
+        { "name": "Done", "tasks": [] }
+      ]
+    },
+    {
+      "name": "Roadmap",
+      "columns": [
+        {
+          "name": "Now",
+          "tasks": [
+            {
+              "title": "Launch version one",
+              "description": "",
+              "status": "Todo",
+              "priority": "medium",
+              "createdAt": "2025-12-05T10:00:00Z",
+              "assigneeId": 1,
+              "subtasks": [
+                {
+                  "title": "Launch privately to our waitlist",
+                  "isCompleted": false,
+                  "assigneeId": 1
+                },
+                {
+                  "title": "Launch publicly on PH, HN, etc.",
+                  "isCompleted": false,
+                  "assigneeId": 1
+                }
+              ]
+            }
+          ]
+        },
+        { "name": "Next", "tasks": [] },
+        { "name": "Later", "tasks": [] }
+      ]
+    }
+  ]
+}

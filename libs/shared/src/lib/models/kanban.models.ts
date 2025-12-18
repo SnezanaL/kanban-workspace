@@ -8,6 +8,8 @@ export interface KanbanTask {
   description: string;
   status: string;
   subtasks: KanbanSubtask[];
+  assignee?: string;
+  priority?: 'Low' | 'Medium' | 'High';
 }
 
 export interface KanbanColumn {
@@ -22,4 +24,11 @@ export interface KanbanBoard {
 
 export interface KanbanData {
   boards: KanbanBoard[];
+}
+
+export interface KanbanUser {
+  id: number;
+  email: string;
+  password: string;
+  name: string;
 }

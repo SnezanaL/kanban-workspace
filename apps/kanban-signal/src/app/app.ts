@@ -1,4 +1,4 @@
-import { Component, OnInit, effect, inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { KanbanBoardComponent, KanbanDataService } from '@kanban-workspace/shared';
 import { KanbanHeaderComponent } from '@kanban-workspace/shared/lib/components/kanban-header/kanban-header.component';
@@ -12,29 +12,17 @@ import { KanbanBackendService } from '@kanban-workspace/shared/lib/services/kanb
   templateUrl: './app.html',
   styleUrl: './app.css',
 })
-export class App implements OnInit {
+export class App {
   private store = inject(KanbanSignalStore);
   private dataService = inject(KanbanDataService);
   private backend = inject(KanbanBackendService);
   protected title = 'Kanban Signal App';
 
-  constructor() {
-    // Effect to track board state changes
-    effect(() => {
-      const board = this.store.board();
-      console.log('Board updated:', board);
-    });
-  }
-
-  ngOnInit(): void {
-    // Load board from fake backend
-    const board = this.backend.selectedBoard();
-    this.store.setBoard(board);
-  }
+  public boards = this.backend.boards;
+  public boardResource = this.backend.selectedBoard;
+  public selectedBoardName = this.backend.selectedBoardName;
 
   onBoardSelected(boardName: string): void {
     this.backend.selectBoard(boardName);
-    const board = this.backend.selectedBoard();
-    this.store.setBoard(board);
   }
 }
