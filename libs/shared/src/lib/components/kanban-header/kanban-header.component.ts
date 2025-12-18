@@ -12,7 +12,6 @@ import { KanbanLogoComponent } from './kanban-logo.component';
       class="flex items-center justify-between px-6 h-16 border-b border-gray-200 bg-white dark:bg-dark-400 dark:border-dark-400"
     >
       <div class="flex items-center gap-4">
-        <lib-kanban-logo></lib-kanban-logo>
         <div class="h-6 w-px bg-gray-200 dark:bg-dark-300"></div>
         <h1 class="text-sm font-semibold text-gray-900 dark:text-dark-100">{{ boardTitle() }}</h1>
       </div>
