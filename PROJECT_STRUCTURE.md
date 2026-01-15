@@ -1,77 +1,90 @@
-# 📁 Pregled Ključnih Fajlova
+# 📁 Key Files Overview
 
-## Shared Biblioteka (`libs/shared/`)
+## Shared Library (`libs/shared/`)
 
-### Modeli
-- `src/lib/models/kanban.models.ts` - TypeScript interfejsi za Board, Column, Card
+### Models
 
-### Servisi
-- `src/lib/services/kanban-data.service.ts` - Mock data servis (može se proširiti sa HTTP pozivima)
+- `src/lib/models/kanban.models.ts` - TypeScript interfaces for Board, Column, Card
 
-### Komponente
-- `src/lib/components/kanban-board/kanban-board.component.ts` - Glavni board container
-- `src/lib/components/kanban-column/kanban-column.component.ts` - Kolona sa karticama
-- `src/lib/components/kanban-card/kanban-card.component.ts` - Pojedinačna kartica
+### Services
+
+- `src/lib/services/kanban-data.service.ts` - Mock data service (can be extended with HTTP calls)
+
+### Components
+
+- `src/lib/components/kanban-board/kanban-board.component.ts` - Main board container
+- `src/lib/components/kanban-column/kanban-column.component.ts` - Column with cards
+- `src/lib/components/kanban-card/kanban-card.component.ts` - Individual card
 
 ### Export
-- `src/index.ts` - Exportuje sve javne API-je biblioteke
+
+- `src/index.ts` - Exports all public library APIs
 
 ---
 
 ## Kanban Signal App (`apps/kanban-signal/`)
 
 ### State Management
-- `src/app/store/kanban-signal.store.ts` - Signal-based store sa reactivity
 
-### Glavna Komponenta
-- `src/app/app.ts` - Root komponenta koja koristi Signal store
-- `src/app/app.html` - Template sa conditional rendering
-- `src/app/app.css` - Stilovi
+- `src/app/store/kanban-signal.store.ts` - Signal-based store with reactivity
+
+### Main Component
+
+- `src/app/app.ts` - Root component that uses Signal store
+- `src/app/app.html` - Template with conditional rendering
+- `src/app/app.css` - Styles
 
 ### Config
-- `src/app/app.config.ts` - Aplikaciona konfiguracija (routing, providers)
+
+- `src/app/app.config.ts` - Application configuration (routing, providers)
 
 ---
 
 ## Kanban NGXS App (`apps/kanban-ngxs/`)
 
 ### State Management
+
 - `src/app/store/kanban.actions.ts` - NGXS Actions (SetBoard, AddCard, DeleteCard, MoveCard)
 - `src/app/store/kanban.state.model.ts` - State model interface
-- `src/app/store/kanban.state.ts` - NGXS State sa @Action i @Selector decorators
+- `src/app/store/kanban.state.ts` - NGXS State with @Action and @Selector decorators
 
-### Glavna Komponenta
-- `src/app/app.ts` - Root komponenta koja dispatuje actions i selectuje state
-- `src/app/app.html` - Template sa async pipe
-- `src/app/app.css` - Stilovi
+### Main Component
+
+- `src/app/app.ts` - Root component that dispatches actions and selects state
+- `src/app/app.html` - Template with async pipe
+- `src/app/app.css` - Styles
 
 ### Config
-- `src/app/app.config.ts` - Aplikaciona konfiguracija sa NGXS provideStore
+
+- `src/app/app.config.ts` - Application configuration with NGXS provideStore
 
 ---
 
-## Kako Sve Funkcioniše Zajedno
+## How Everything Works Together
 
-### Shared Biblioteka
+### Shared Library
+
 ```
 libs/shared/
-  ├── models/           → TypeScript tipovi
-  ├── services/         → Data servisi
-  ├── components/       → UI komponente
+  ├── models/           → TypeScript types
+  ├── services/         → Data services
+  ├── components/       → UI components
   └── index.ts          → Public API
 ```
 
-### Kanban Signal (Signals pristup)
+### Kanban Signal (Signals approach)
+
 ```typescript
-// Store koristi signals
+// Store uses signals
 boardSignal = signal<KanbanBoard | null>(null);
 board = this.boardSignal.asReadonly();
 
-// U komponenti
+// In component
 constructor(public store: KanbanSignalStore) {}
 ```
 
-### Kanban NGXS (Redux pristup)
+### Kanban NGXS (Redux approach)
+
 ```typescript
 // Actions
 this.store.dispatch(new SetBoard(board));
@@ -79,22 +92,24 @@ this.store.dispatch(new SetBoard(board));
 // Selectors
 @Select(KanbanState.board) board$!: Observable<KanbanBoard | null>;
 
-// U template-u
+// In template
 (board$ | async)
 ```
 
 ---
 
-## Pokretanje
+## Running
 
-### Option 1: Jedna aplikacija
+### Option 1: Single application
+
 ```powershell
 npx nx serve kanban-signal   # Port 4200
-# ili
+# or
 npx nx serve kanban-ngxs     # Port 4200
 ```
 
-### Option 2: Obe istovremeno
+### Option 2: Both simultaneously
+
 ```powershell
 # Terminal 1
 npx nx serve kanban-signal --port=4200
@@ -105,35 +120,38 @@ npx nx serve kanban-ngxs --port=4201
 
 ---
 
-## Dodavanje Nove Funkcionalnosti
+## Adding New Features
 
-### U Shared Biblioteku
-1. Dodaj u `libs/shared/src/lib/`
-2. Exportuj u `libs/shared/src/index.ts`
-3. Obe aplikacije automatski dobijaju pristup
+### To Shared Library
 
-### U Signal App
-1. Dodaj u `kanban-signal.store.ts` novu metodu
-2. Pozovi je iz `app.ts`
+1. Add to `libs/shared/src/lib/`
+2. Export in `libs/shared/src/index.ts`
+3. Both applications automatically get access
 
-### U NGXS App
-1. Dodaj novu akciju u `kanban.actions.ts`
-2. Dodaj handler u `kanban.state.ts` sa `@Action` decorator
-3. Dispatch-uj iz `app.ts`
+### To Signal App
+
+1. Add new method to `kanban-signal.store.ts`
+2. Call it from `app.ts`
+
+### To NGXS App
+
+1. Add new action to `kanban.actions.ts`
+2. Add handler to `kanban.state.ts` with `@Action` decorator
+3. Dispatch from `app.ts`
 
 ---
 
-## Testiranje
+## Testing
 
 ```powershell
-# Test pojedinačne aplikacije
+# Test individual application
 npx nx test kanban-signal
 npx nx test kanban-ngxs
 
-# Test shared biblioteke
+# Test shared library
 npx nx test shared
 
-# Test sve
+# Test all
 npx nx run-many --target=test --all
 ```
 
@@ -145,16 +163,17 @@ npx nx run-many --target=test --all
 npx nx graph
 ```
 
-Prikazuje:
-- `kanban-signal` → zavisi od → `shared`
-- `kanban-ngxs` → zavisi od → `shared`
-- `shared` → samostalna biblioteka
+Shows:
+
+- `kanban-signal` → depends on → `shared`
+- `kanban-ngxs` → depends on → `shared`
+- `shared` → standalone library
 
 ---
 
-## Import Path Aliasi
+## Import Path Aliases
 
-Definisani u `tsconfig.base.json`:
+Defined in `tsconfig.base.json`:
 
 ```json
 {
@@ -164,7 +183,8 @@ Definisani u `tsconfig.base.json`:
 }
 ```
 
-Koristi se u aplikacijama:
+Used in applications:
+
 ```typescript
 import { KanbanBoard, KanbanDataService } from '@kanban-workspace/shared';
 ```

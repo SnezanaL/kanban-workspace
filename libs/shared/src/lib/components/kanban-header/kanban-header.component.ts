@@ -1,11 +1,10 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { KanbanLogoComponent } from './kanban-logo.component';
 
 @Component({
   selector: 'lib-kanban-header',
   standalone: true,
-  imports: [CommonModule, KanbanLogoComponent],
+  imports: [CommonModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <header

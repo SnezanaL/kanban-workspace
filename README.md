@@ -1,82 +1,82 @@
-# KanbanWorkspace
+# 🧩 Kanban Workspace (Nx + Angular)
 
-<a alt="Nx logo" href="https://nx.dev" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="45"></a>
+A Kanban workspace built with Nx monorepo, showcasing two Angular applications that share common components, services, and models, while using different state management approaches.
 
-✨ Your new, shiny [Nx workspace](https://nx.dev) is almost ready ✨.
+## 📦 Project Structure
 
-[Learn more about this workspace setup and its capabilities](https://nx.dev/getting-started/tutorials/angular-standalone-tutorial?utm_source=nx_project&amp;utm_medium=readme&amp;utm_campaign=nx_projects) or run `npx nx graph` to visually explore what was created. Now, let's get you up to speed!
+### Applications
 
-## Finish your CI setup
+- **kanban-signal** – Angular app using Angular Signals for state management
+- **kanban-ngxs** – Angular app using NGXS for state management
 
-[Click here to finish setting up your workspace!](https://cloud.nx.app/connect/IDFs8e8kTF)
+### Shared Library
 
+`libs/shared`
 
-## Run tasks
+- **Components**: KanbanBoard, KanbanColumn, KanbanCard
+- **Services**: KanbanDataService
+- **Models**: KanbanBoard, KanbanColumn, KanbanCard
 
-To run the dev server for your app, use:
+All UI components are standalone, reusable, and independent of the state solution.
 
-```sh
-npx nx serve kanban-workspace
-```
-
-To create a production bundle:
-
-```sh
-npx nx build kanban-workspace
-```
-
-To see all available targets to run for a project, run:
+## 🚀 Running the Apps
 
 ```sh
-npx nx show project kanban-workspace
+npm install
+
+npx nx serve kanban-signal
+
+npx nx serve kanban-ngxs
 ```
 
-These targets are either [inferred automatically](https://nx.dev/concepts/inferred-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) or defined in the `project.json` or `package.json` files.
-
-[More about running tasks in the docs &raquo;](https://nx.dev/features/run-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-## Add new projects
-
-While you could add new projects to your workspace manually, you might want to leverage [Nx plugins](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) and their [code generation](https://nx.dev/features/generate-code?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) feature.
-
-Use the plugin's generator to create new projects.
-
-To generate a new application, use:
+Run both apps simultaneously:
 
 ```sh
-npx nx g @nx/angular:app demo
+npx nx serve kanban-signal --port=4200
+npx nx serve kanban-ngxs --port=4201
 ```
 
-To generate a new library, use:
+## 📋 Features
 
-```sh
-npx nx g @nx/angular:lib mylib
-```
+- Kanban board with columns (To Do, In Progress, Done)
+- Task cards with title, description, assignee, and priority
+- Add and delete cards
+- Visual priority indicators (high / medium / low)
 
-You can use `npx nx list` to get a list of installed plugins. Then, run `npx nx list <plugin-name>` to learn about more specific capabilities of a particular plugin. Alternatively, [install Nx Console](https://nx.dev/getting-started/editor-setup?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) to browse plugins and generators in your IDE.
+## 🧠 State Management Comparison
 
-[Learn more about Nx plugins &raquo;](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) | [Browse the plugin registry &raquo;](https://nx.dev/plugin-registry?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+### kanban-signal
 
+- Angular Signals (signal, computed, effect)
+- Service-based store (KanbanSignalStore)
+- Imperative API
+- Automatic reactivity
 
-[Learn more about Nx on CI](https://nx.dev/ci/intro/ci-with-nx#ready-get-started-with-your-provider?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+### kanban-ngxs
 
-## Install Nx Console
+- NGXS store with actions, state, and selectors
+- RxJS observable-based API
+- Redux DevTools integration (dev mode)
+- Type-safe state management
 
-Nx Console is an editor extension that enriches your developer experience. It lets you run tasks, generate code, and improves code autocompletion in your IDE. It is available for VSCode and IntelliJ.
+## 🧪 Tooling & Quality
 
-[Install Nx Console &raquo;](https://nx.dev/getting-started/editor-setup?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+- Unit tests with Jest
+- E2E tests with Playwright
+- ESLint for linting
+- Rspack / esbuild for fast builds
+- OnPush change detection
 
-## Useful links
+## 🛠 Tech Stack
 
-Learn more:
+- Angular 20
+- Nx Monorepo
+- TypeScript
+- Angular Signals
+- NGXS
+- Jest & Playwright
 
-- [Learn more about this workspace setup](https://nx.dev/getting-started/tutorials/angular-standalone-tutorial?utm_source=nx_project&amp;utm_medium=readme&amp;utm_campaign=nx_projects)
-- [Learn about Nx on CI](https://nx.dev/ci/intro/ci-with-nx?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Releasing Packages with Nx release](https://nx.dev/features/manage-releases?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [What are Nx plugins?](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+## 🎯 Key Idea
 
-And join the Nx community:
-- [Discord](https://go.nx.dev/community)
-- [Follow us on X](https://twitter.com/nxdevtools) or [LinkedIn](https://www.linkedin.com/company/nrwl)
-- [Our Youtube channel](https://www.youtube.com/@nxdevtools)
-- [Our blog](https://nx.dev/blog?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+Both applications share the same UI layer and business models.
+The only difference is the state management approach, making this project a clear comparison between Signals-based and Redux-style state handling in Angular.
