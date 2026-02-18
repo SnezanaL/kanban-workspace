@@ -19,6 +19,7 @@
   ],
   "boards": [
     {
+      "id": 1,
       "name": "Platform Launch",
       "columns": [
         {
@@ -32,9 +33,96 @@
               "createdAt": "2025-12-01T10:00:00Z",
               "assigneeId": 1,
               "subtasks": [
-                { "title": "Sign up page", "isCompleted": true, "assigneeId": 1 },
-                { "title": "Sign in page", "isCompleted": false, "assigneeId": 1 },
-                { "title": "Welcome page", "isCompleted": false, "assigneeId": 1 }
+                {
+                  "title": "Sign up page",
+                  "isCompleted": true,
+                  "assigneeId": 1
+                },
+                {
+                  "title": "Sign in page",
+                  "isCompleted": false,
+                  "assigneeId": 1
+                },
+                {
+                  "title": "Welcome page",
+                  "isCompleted": false,
+                  "assigneeId": 1
+                }
+              ]
+            },
+            {
+              "title": "Set up CI/CD pipeline",
+              "description": "Automate builds and deployments using GitHub Actions.",
+              "status": "Todo",
+              "priority": "high",
+              "createdAt": "2026-01-10T09:00:00Z",
+              "assigneeId": 1,
+              "subtasks": [
+                {
+                  "title": "Configure GitHub Actions workflow",
+                  "isCompleted": false,
+                  "assigneeId": 1
+                },
+                {
+                  "title": "Add automated tests to pipeline",
+                  "isCompleted": false,
+                  "assigneeId": 1
+                },
+                {
+                  "title": "Set up staging environment deploy",
+                  "isCompleted": false,
+                  "assigneeId": 1
+                }
+              ]
+            },
+            {
+              "title": "Integrate analytics tracking",
+              "description": "Add analytics instrumentation (PostHog/GA4) to capture pageviews and board interactions. Track events: task.create, task.update, task.move, task.delete, board.switch.",
+              "status": "Todo",
+              "priority": "high",
+              "createdAt": "2026-02-18T12:00:00Z",
+              "assigneeId": 1,
+              "subtasks": [
+                {
+                  "title": "Add SDK and environment variables",
+                  "isCompleted": false,
+                  "assigneeId": 1
+                },
+                {
+                  "title": "Instrument task events",
+                  "isCompleted": false,
+                  "assigneeId": 1
+                },
+                {
+                  "title": "Create dashboard with key metrics",
+                  "isCompleted": false,
+                  "assigneeId": 1
+                },
+                {
+                  "title": "Add QA checks and an e2e test",
+                  "isCompleted": false,
+                  "assigneeId": 1
+                }
+              ]
+            },
+            {
+              "title": "Write API documentation",
+              "description": "Document all public endpoints using OpenAPI/Swagger.",
+              "status": "Todo",
+              "priority": "low",
+              "createdAt": "2026-01-15T08:00:00Z",
+              "assigneeId": 1,
+              "subtasks": [
+                {
+                  "title": "Document /boards endpoints",
+                  "isCompleted": false,
+                  "assigneeId": 1
+                },
+                {
+                  "title": "Document /users endpoints",
+                  "isCompleted": false,
+                  "assigneeId": 1
+                }
               ]
             }
           ]
@@ -43,27 +131,34 @@
           "name": "Doing",
           "tasks": [
             {
-              "title": "Design settings and search pages",
-              "description": "",
+              "title": "Implement dark mode",
+              "description": "Add dark mode support using Tailwind CSS dark variant and a toggle.",
               "status": "Doing",
               "priority": "medium",
-              "createdAt": "2025-12-02T10:00:00Z",
+              "createdAt": "2026-02-01T10:00:00Z",
               "assigneeId": 1,
               "subtasks": [
-                { "title": "Settings - Account page", "isCompleted": true, "assigneeId": 1 },
-                { "title": "Settings - Billing page", "isCompleted": true, "assigneeId": 1 },
-                { "title": "Search page", "isCompleted": false, "assigneeId": 1 }
+                {
+                  "title": "Add Tailwind dark mode config",
+                  "isCompleted": true,
+                  "assigneeId": 1
+                },
+                {
+                  "title": "Update all component styles",
+                  "isCompleted": false,
+                  "assigneeId": 1
+                },
+                {
+                  "title": "Persist preference to localStorage",
+                  "isCompleted": false,
+                  "assigneeId": 1
+                }
               ]
-            }
-          ]
-        },
-        {
-          "name": "Done",
-          "tasks": [
+            },
             {
               "title": "Conduct 5 wireframe tests",
               "description": "Ensure the layout continues to make sense and we have strong buy-in from potential users.",
-              "status": "Done",
+              "status": "Doing",
               "priority": "low",
               "createdAt": "2025-12-03T10:00:00Z",
               "assigneeId": 1,
@@ -74,12 +169,74 @@
                   "assigneeId": 1
                 }
               ]
+            },
+            {
+              "title": "Integrate analytics tracking",
+              "description": "Add analytics instrumentation (PostHog/GA4) to capture pageviews and board interactions. Track events: task.create, task.update, task.move, task.delete, board.switch. Include brief docs and QA steps.",
+              "status": "Doing",
+              "subtasks": [
+                {
+                  "title": "Add SDK and environment variables",
+                  "isCompleted": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Done",
+          "tasks": [
+            {
+              "title": "Set up project repository",
+              "description": "Initialize Git repo, configure .gitignore and branch protection rules.",
+              "status": "Done",
+              "priority": "high",
+              "createdAt": "2025-11-20T08:00:00Z",
+              "assigneeId": 1,
+              "subtasks": [
+                {
+                  "title": "Create GitHub repo",
+                  "isCompleted": true,
+                  "assigneeId": 1
+                },
+                {
+                  "title": "Add branch protection on main",
+                  "isCompleted": true,
+                  "assigneeId": 1
+                }
+              ]
+            },
+            {
+              "title": "Design settings and search pages",
+              "description": "Finalize Figma designs and hand off to dev.",
+              "status": "Done",
+              "priority": "medium",
+              "createdAt": "2025-12-02T10:00:00Z",
+              "assigneeId": 1,
+              "subtasks": [
+                {
+                  "title": "Settings - Account page",
+                  "isCompleted": true,
+                  "assigneeId": 1
+                },
+                {
+                  "title": "Settings - Billing page",
+                  "isCompleted": true,
+                  "assigneeId": 1
+                },
+                {
+                  "title": "Search page",
+                  "isCompleted": false,
+                  "assigneeId": 1
+                }
+              ]
             }
           ]
         }
       ]
     },
     {
+      "id": 2,
       "name": "Marketing Plan",
       "columns": [
         {
@@ -93,21 +250,124 @@
               "createdAt": "2025-12-04T10:00:00Z",
               "assigneeId": 1,
               "subtasks": [
-                { "title": "Find hunter", "isCompleted": false, "assigneeId": 1 },
-                { "title": "Gather assets", "isCompleted": false, "assigneeId": 1 },
-                { "title": "Draft product page", "isCompleted": false, "assigneeId": 1 },
-                { "title": "Notify customers", "isCompleted": false, "assigneeId": 1 },
-                { "title": "Notify network", "isCompleted": false, "assigneeId": 1 },
-                { "title": "Launch!", "isCompleted": false, "assigneeId": 1 }
+                {
+                  "title": "Find hunter",
+                  "isCompleted": false,
+                  "assigneeId": 1
+                },
+                {
+                  "title": "Gather assets",
+                  "isCompleted": false,
+                  "assigneeId": 1
+                },
+                {
+                  "title": "Draft product page",
+                  "isCompleted": false,
+                  "assigneeId": 1
+                },
+                {
+                  "title": "Notify customers",
+                  "isCompleted": false,
+                  "assigneeId": 1
+                },
+                {
+                  "title": "Notify network",
+                  "isCompleted": false,
+                  "assigneeId": 1
+                },
+                {
+                  "title": "Launch!",
+                  "isCompleted": false,
+                  "assigneeId": 1
+                }
+              ]
+            },
+            {
+              "title": "Create social media content calendar",
+              "description": "Plan posts for LinkedIn, Twitter and Instagram for the next 4 weeks.",
+              "status": "Todo",
+              "priority": "medium",
+              "createdAt": "2026-01-20T09:00:00Z",
+              "assigneeId": 1,
+              "subtasks": [
+                {
+                  "title": "Draft LinkedIn posts",
+                  "isCompleted": false,
+                  "assigneeId": 1
+                },
+                {
+                  "title": "Design Instagram graphics",
+                  "isCompleted": false,
+                  "assigneeId": 1
+                },
+                {
+                  "title": "Schedule via Buffer",
+                  "isCompleted": false,
+                  "assigneeId": 1
+                }
               ]
             }
           ]
         },
-        { "name": "Doing", "tasks": [] },
-        { "name": "Done", "tasks": [] }
+        {
+          "name": "Doing",
+          "tasks": [
+            {
+              "title": "Write launch blog post",
+              "description": "Announce the product launch with a detailed blog post on our website.",
+              "status": "Doing",
+              "priority": "high",
+              "createdAt": "2026-02-05T10:00:00Z",
+              "assigneeId": 1,
+              "subtasks": [
+                {
+                  "title": "Write first draft",
+                  "isCompleted": true,
+                  "assigneeId": 1
+                },
+                {
+                  "title": "Get feedback from team",
+                  "isCompleted": false,
+                  "assigneeId": 1
+                },
+                {
+                  "title": "Publish on website",
+                  "isCompleted": false,
+                  "assigneeId": 1
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Done",
+          "tasks": [
+            {
+              "title": "Define target audience personas",
+              "description": "Research and document 3 primary user personas for the product.",
+              "status": "Done",
+              "priority": "high",
+              "createdAt": "2025-11-15T10:00:00Z",
+              "assigneeId": 1,
+              "subtasks": [
+                {
+                  "title": "Interview 5 potential users",
+                  "isCompleted": true,
+                  "assigneeId": 1
+                },
+                {
+                  "title": "Write persona documents",
+                  "isCompleted": true,
+                  "assigneeId": 1
+                }
+              ]
+            }
+          ]
+        }
       ]
     },
     {
+      "id": 3,
       "name": "Roadmap",
       "columns": [
         {
@@ -132,11 +392,99 @@
                   "assigneeId": 1
                 }
               ]
+            },
+            {
+              "title": "Fix critical accessibility issues",
+              "description": "Ensure WCAG 2.1 AA compliance across all main screens.",
+              "status": "Now",
+              "priority": "high",
+              "createdAt": "2026-02-10T08:00:00Z",
+              "assigneeId": 1,
+              "subtasks": [
+                {
+                  "title": "Add ARIA labels to all buttons",
+                  "isCompleted": false,
+                  "assigneeId": 1
+                },
+                {
+                  "title": "Fix colour contrast issues",
+                  "isCompleted": false,
+                  "assigneeId": 1
+                },
+                {
+                  "title": "Test with screen reader",
+                  "isCompleted": false,
+                  "assigneeId": 1
+                }
+              ]
             }
           ]
         },
-        { "name": "Next", "tasks": [] },
-        { "name": "Later", "tasks": [] }
+        {
+          "name": "Next",
+          "tasks": [
+            {
+              "title": "Add real-time collaboration",
+              "description": "Allow multiple users to edit boards simultaneously using WebSockets.",
+              "status": "Next",
+              "priority": "high",
+              "createdAt": "2026-02-01T09:00:00Z",
+              "assigneeId": 1,
+              "subtasks": [
+                {
+                  "title": "Research WebSocket vs SSE",
+                  "isCompleted": false,
+                  "assigneeId": 1
+                },
+                {
+                  "title": "Prototype live cursor feature",
+                  "isCompleted": false,
+                  "assigneeId": 1
+                }
+              ]
+            },
+            {
+              "title": "Mobile app (React Native)",
+              "description": "Build a companion mobile app for iOS and Android.",
+              "status": "Next",
+              "priority": "medium",
+              "createdAt": "2026-02-03T10:00:00Z",
+              "assigneeId": 1,
+              "subtasks": [
+                {
+                  "title": "Set up Expo project",
+                  "isCompleted": false,
+                  "assigneeId": 1
+                },
+                {
+                  "title": "Port board view to mobile layout",
+                  "isCompleted": false,
+                  "assigneeId": 1
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Later",
+          "tasks": [
+            {
+              "title": "AI task suggestions",
+              "description": "Use an LLM to suggest next tasks based on board context.",
+              "status": "Later",
+              "priority": "low",
+              "createdAt": "2026-02-15T10:00:00Z",
+              "assigneeId": 1,
+              "subtasks": [
+                {
+                  "title": "Explore OpenAI API integration",
+                  "isCompleted": false,
+                  "assigneeId": 1
+                }
+              ]
+            }
+          ]
+        }
       ]
     }
   ]

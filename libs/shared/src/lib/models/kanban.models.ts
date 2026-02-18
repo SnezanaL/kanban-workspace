@@ -18,6 +18,7 @@ export interface KanbanColumn {
 }
 
 export interface KanbanBoard {
+  id?: number;
   name: string;
   columns: KanbanColumn[];
 }

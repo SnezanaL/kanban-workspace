@@ -12,10 +12,10 @@ const middlewares = jsonServer.defaults();
 server.use(middlewares);
 server.use(jsonServer.bodyParser);
 
-// ✅ “Moćno”: latency + random error simulator
+// Latency + random error simulator (makes the API feel realistic)
 server.use((req, res, next) => {
-  const delayMs = 400; // deluje realno
-  const failRate = req.method !== 'GET' ? 0.15 : 0.05; // češće puca na write
+  const delayMs = 400; // simulated network delay
+  const failRate = req.method !== 'GET' ? 0.15 : 0.05; // higher failure rate for write operations
 
   setTimeout(() => {
     if (Math.random() < failRate) {
@@ -25,10 +25,10 @@ server.use((req, res, next) => {
   }, delayMs);
 });
 
-// (Auth sloj json-server-auth je privremeno isključen zbog konflikta
-// sa path-to-regexp u verziji paketa; mock API radi bez toga.)
+// Note: json-server-auth is temporarily disabled due to a conflict with
+// path-to-regexp in the current package version; the mock API works without it.
 
-// ✅ “Moćno”: server-side paginacija + total count
+// Expose X-Total-Count header to support server-side pagination
 server.use((req, res, next) => {
   res.header('Access-Control-Expose-Headers', 'X-Total-Count');
   next();

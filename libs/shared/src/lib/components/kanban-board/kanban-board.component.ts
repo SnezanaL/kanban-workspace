@@ -1,78 +1,93 @@
-import { Component, ChangeDetectionStrategy, input } from '@angular/core';
+import { Component, ChangeDetectionStrategy, input, output, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { KanbanBoard, KanbanTask } from '../../models/kanban.models';
+
+export interface TaskActionEvent {
+  type: 'edit' | 'delete' | 'move';
+  column: string;
+  taskIndex: number;
+  toColumn?: string;
+}
+
+/** Notion-style column badge colours. Cycles through a palette for custom column names. */
+const COLUMN_BADGE: Record<string, { dot: string; bg: string; text: string }> = {
+  todo: {
+    dot: 'bg-gray-400',
+    bg: 'bg-gray-100 dark:bg-dark-300',
+    text: 'text-gray-600 dark:text-gray-300',
+  },
+  doing: {
+    dot: 'bg-amber-400',
+    bg: 'bg-amber-50 dark:bg-amber-900/20',
+    text: 'text-amber-700 dark:text-amber-300',
+  },
+  done: {
+    dot: 'bg-emerald-400',
+    bg: 'bg-emerald-50 dark:bg-emerald-900/20',
+    text: 'text-emerald-700 dark:text-emerald-300',
+  },
+  now: {
+    dot: 'bg-blue-400',
+    bg: 'bg-blue-50 dark:bg-blue-900/20',
+    text: 'text-blue-700 dark:text-blue-300',
+  },
+  next: {
+    dot: 'bg-purple-400',
+    bg: 'bg-purple-50 dark:bg-purple-900/20',
+    text: 'text-purple-700 dark:text-purple-300',
+  },
+  later: {
+    dot: 'bg-rose-400',
+    bg: 'bg-rose-50 dark:bg-rose-900/20',
+    text: 'text-rose-700 dark:text-rose-300',
+  },
+};
+
+const FALLBACK_DOTS = ['bg-cyan-400', 'bg-orange-400', 'bg-pink-400', 'bg-indigo-400'];
 
 @Component({
   selector: 'lib-kanban-board',
   standalone: true,
   imports: [CommonModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  template: `
-    <div class="flex gap-6 h-full overflow-x-auto p-6">
-      @for (column of board().columns; track column.name) {
-      <div class="flex flex-col min-w-[280px] bg-gray-100 dark:bg-dark-400 rounded-lg p-4">
-        <div class="flex items-center justify-between mb-4">
-          <h3
-            class="text-sm font-semibold uppercase tracking-wide text-gray-600 dark:text-gray-400"
-          >
-            {{ column.name }} ({{ column.tasks.length }})
-          </h3>
-        </div>
-        <div class="flex flex-col gap-3 overflow-y-auto">
-          @for (task of column.tasks; track task.title) {
-          <div class="card p-4">
-            <h4 class="font-semibold text-sm mb-2">{{ task.title }}</h4>
-            @if (task.description) {
-            <p class="text-xs text-gray-600 dark:text-gray-400 mb-2">{{ task.description }}</p>
-            } @if (task.subtasks.length > 0) {
-            <p class="text-xs text-gray-500 dark:text-gray-500">
-              {{ getCompletedSubtasks(task) }} of {{ task.subtasks.length }} subtasks
-            </p>
-            }
-          </div>
-          }
-        </div>
-      </div>
-      }
-    </div>
-  `,
-  styles: [
-    `
-      .kanban-board {
-        height: 100vh;
-        display: flex;
-        flex-direction: column;
-        background: #e0e0e0;
-      }
-
-      .board-header {
-        background: white;
-        padding: 20px 32px;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-      }
-
-      .board-header h1 {
-        margin: 0;
-        font-size: 28px;
-        font-weight: 700;
-        color: #333;
-      }
-
-      .columns-container {
-        flex: 1;
-        display: flex;
-        gap: 20px;
-        padding: 32px;
-        overflow-x: auto;
-        overflow-y: hidden;
-      }
-    `,
-  ],
+  templateUrl: './kanban-board.component.html',
+  styleUrls: ['./kanban-board.component.scss'],
 })
 export class KanbanBoardComponent {
   readonly board = input.required<KanbanBoard>();
 
-  getCompletedSubtasks(task: KanbanTask): number {
+  readonly taskAction = output<TaskActionEvent>();
+  readonly addTaskToColumn = output<string>();
+  readonly addColumn = output<void>();
+
+  readonly openMenuKey = signal<string | null>(null);
+
+  toggleMenu(column: string, index: number, event: Event) {
+    event.stopPropagation();
+    const key = `${column}-${index}`;
+    this.openMenuKey.update((k) => (k === key ? null : key));
+  }
+
+  getBadge(name: string, fallbackIndex: number) {
+    const key = name.toLowerCase();
+    if (COLUMN_BADGE[key]) return COLUMN_BADGE[key];
+    const dot = FALLBACK_DOTS[fallbackIndex % FALLBACK_DOTS.length];
+    return { dot, bg: 'bg-gray-100 dark:bg-dark-300', text: 'text-gray-600 dark:text-gray-300' };
+  }
+
+  protected onMoveTask(fromColumn: string, taskIndex: number, event: Event) {
+    const toColumn = (event.target as HTMLSelectElement).value;
+    if (toColumn !== fromColumn) {
+      this.taskAction.emit({ type: 'move', column: fromColumn, taskIndex, toColumn });
+    }
+  }
+
+  protected getCompletedSubtasks(task: KanbanTask): number {
     return task.subtasks.filter((st) => st.isCompleted).length;
+  }
+
+  protected getSubtaskPercent(task: KanbanTask): number {
+    if (!task.subtasks.length) return 0;
+    return Math.round((this.getCompletedSubtasks(task) / task.subtasks.length) * 100);
   }
 }
