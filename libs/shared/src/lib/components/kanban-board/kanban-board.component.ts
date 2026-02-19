@@ -52,6 +52,7 @@ const FALLBACK_DOTS = ['bg-cyan-400', 'bg-orange-400', 'bg-pink-400', 'bg-indigo
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './kanban-board.component.html',
   styleUrls: ['./kanban-board.component.scss'],
+  host: { style: 'display:block; height:100%; min-height:0;' },
 })
 export class KanbanBoardComponent {
   readonly board = input.required<KanbanBoard>();

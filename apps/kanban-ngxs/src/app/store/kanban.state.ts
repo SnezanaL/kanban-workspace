@@ -102,12 +102,10 @@ export class KanbanState {
     if (!name.trim()) {
       return ctx.dispatch(new _SetBoard(null));
     }
-    return this.http
-      .get<KanbanBoard[]>(`${API_URL}/boards`, { params: { name } })
-      .pipe(
-        map((boards) => boards[0] ?? null),
-        switchMap((board) => ctx.dispatch(new _SetBoard(board)))
-      );
+    return this.http.get<KanbanBoard[]>(`${API_URL}/boards`, { params: { name } }).pipe(
+      map((boards) => boards[0] ?? null),
+      switchMap((board) => ctx.dispatch(new _SetBoard(board)))
+    );
   }
 
   // ── Helper: patch board on server then reload everything ─────────────────────
@@ -115,13 +113,11 @@ export class KanbanState {
   private patchBoard$(ctx: StateContext<KanbanStateModel>, changes: Partial<KanbanBoard>) {
     const board = ctx.getState().board;
     if (!board) return of(null);
-    return this.http
-      .patch<KanbanBoard>(`${API_URL}/boards/${board.id}`, changes)
-      .pipe(
-        switchMap(() => this.http.get<KanbanBoard[]>(`${API_URL}/boards`)),
-        switchMap((boards) => ctx.dispatch(new _SetBoards(boards))),
-        switchMap(() => this.loadCurrentBoard(ctx))
-      );
+    return this.http.patch<KanbanBoard>(`${API_URL}/boards/${board.id}`, changes).pipe(
+      switchMap(() => this.http.get<KanbanBoard[]>(`${API_URL}/boards`)),
+      switchMap((boards) => ctx.dispatch(new _SetBoards(boards))),
+      switchMap(() => this.loadCurrentBoard(ctx))
+    );
   }
 
   // ── Board actions ─────────────────────────────────────────────────────────────
@@ -145,9 +141,11 @@ export class KanbanState {
   createBoard(ctx: StateContext<KanbanStateModel>, action: CreateBoard) {
     const newBoard: KanbanBoard = { name: action.name, columns: action.columns };
     return this.http.post<KanbanBoard>(`${API_URL}/boards`, newBoard).pipe(
-      switchMap((created) => this.http.get<KanbanBoard[]>(`${API_URL}/boards`).pipe(
-        switchMap((boards) => ctx.dispatch(new _SetBoards(boards, created.name)))
-      )),
+      switchMap((created) =>
+        this.http
+          .get<KanbanBoard[]>(`${API_URL}/boards`)
+          .pipe(switchMap((boards) => ctx.dispatch(new _SetBoards(boards, created.name))))
+      ),
       switchMap(() => this.loadCurrentBoard(ctx))
     );
   }

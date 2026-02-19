@@ -5,7 +5,7 @@
   role="presentation"
 >
   @for (column of board().columns; track column.name; let colIdx = $index) {
-  <div class="flex flex-col min-w-[280px]">
+  <div class="flex flex-col min-w-[280px] h-full">
     <!-- Column header -->
     <div class="flex items-center justify-between mb-3 px-1">
       <div class="flex items-center gap-2">
@@ -31,7 +31,7 @@
     </div>
 
     <!-- Task cards -->
-    <div class="flex flex-col gap-3 overflow-y-auto">
+    <div class="flex flex-col gap-3 flex-1 min-h-0 overflow-y-auto pr-1">
       @for (task of column.tasks; track task.title + $index) {
       <div
         class="card p-4 relative cursor-pointer"
@@ -181,7 +181,7 @@
             <!-- Dropdown panel -->
             @if (openStatusKey() === 'status-' + column.name + '-' + $index) {
             <div
-              class="absolute left-0 top-full mt-1.5 z-50 w-40 rounded-lg border border-gray-200 dark:border-dark-300 bg-white dark:bg-dark-400 shadow-lg"
+              class="absolute left-0 top-full mt-1.5 z-[999] w-40 rounded-lg border border-gray-200 dark:border-dark-300 bg-white dark:bg-dark-400 shadow-lg"
             >
               <ul class="p-1.5 text-sm">
                 @for (col of board().columns; track col.name) {
