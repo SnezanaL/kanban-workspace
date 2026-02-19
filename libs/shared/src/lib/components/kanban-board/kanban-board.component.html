@@ -1,7 +1,7 @@
 <div
   class="flex gap-6 h-full overflow-x-auto p-6"
-  (click)="openMenuKey.set(null)"
-  (keydown.escape)="openMenuKey.set(null)"
+  (click)="openMenuKey.set(null); openStatusKey.set(null)"
+  (keydown.escape)="openMenuKey.set(null); openStatusKey.set(null)"
   role="presentation"
 >
   @for (column of board().columns; track column.name; let colIdx = $index) {
@@ -146,29 +146,82 @@
         </div>
         }
 
-        <!-- Status badge as inline select -->
+        <!-- Status dropdown -->
         <div class="flex items-center gap-2">
-          <div
-            class="relative inline-flex items-center gap-1 rounded-full px-2 py-0.5
-                {{ getBadge(column.name, colIdx).bg }}"
-          >
-            <span
-              class="h-1.5 w-1.5 rounded-full shrink-0 {{ getBadge(column.name, colIdx).dot }}"
-            ></span>
-            <select
-              class="appearance-none bg-transparent text-xs font-medium cursor-pointer pr-1
-                    {{ getBadge(column.name, colIdx).text }}
-                    focus:outline-none"
-              [value]="column.name"
-              (change)="onMoveTask(column.name, $index, $event)"
-              (click)="$event.stopPropagation()"
+          <div class="relative">
+            <!-- Pill trigger -->
+            <button
+              type="button"
+              class="inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-medium transition-opacity hover:opacity-80
+                {{ getBadge(column.name, colIdx).bg }} {{ getBadge(column.name, colIdx).text }}"
+              (click)="toggleStatus(column.name, $index, $event)"
             >
-              @for (col of board().columns; track col.name) {
-              <option [value]="col.name" [selected]="col.name === column.name">
-                {{ col.name }}
-              </option>
-              }
-            </select>
+              <span
+                class="h-1.5 w-1.5 rounded-full shrink-0 {{ getBadge(column.name, colIdx).dot }}"
+              ></span>
+              {{ column.name }}
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="9"
+                height="9"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="3"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="transition-transform {{
+                  openStatusKey() === 'status-' + column.name + '-' + $index ? 'rotate-180' : ''
+                }}"
+              >
+                <polyline points="6 9 12 15 18 9" />
+              </svg>
+            </button>
+
+            <!-- Dropdown panel -->
+            @if (openStatusKey() === 'status-' + column.name + '-' + $index) {
+            <div
+              class="absolute left-0 top-full mt-1.5 z-50 w-40 rounded-lg border border-gray-200 dark:border-dark-300 bg-white dark:bg-dark-400 shadow-lg"
+            >
+              <ul class="p-1.5 text-sm">
+                @for (col of board().columns; track col.name) {
+                <li>
+                  <button
+                    type="button"
+                    class="inline-flex items-center gap-2 w-full px-2.5 py-2 rounded-md text-xs font-medium transition-colors
+                      {{
+                      col.name === column.name
+                        ? getBadge(col.name, $index).bg + ' ' + getBadge(col.name, $index).text
+                        : 'text-gray-600 dark:text-dark-200 hover:bg-gray-100 dark:hover:bg-dark-300 hover:text-gray-900 dark:hover:text-dark-100'
+                    }}"
+                    (click)="selectStatus(column.name, col.name, $index, $event)"
+                  >
+                    <span
+                      class="h-1.5 w-1.5 rounded-full shrink-0 {{ getBadge(col.name, $index).dot }}"
+                    ></span>
+                    {{ col.name }}
+                    @if (col.name === column.name) {
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="11"
+                      height="11"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="3"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      class="ml-auto"
+                    >
+                      <polyline points="20 6 9 17 4 12" />
+                    </svg>
+                    }
+                  </button>
+                </li>
+                }
+              </ul>
+            </div>
+            }
           </div>
         </div>
       </div>

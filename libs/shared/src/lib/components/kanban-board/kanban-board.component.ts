@@ -61,11 +61,28 @@ export class KanbanBoardComponent {
   readonly addColumn = output<void>();
 
   readonly openMenuKey = signal<string | null>(null);
+  readonly openStatusKey = signal<string | null>(null);
 
   toggleMenu(column: string, index: number, event: Event) {
     event.stopPropagation();
     const key = `${column}-${index}`;
     this.openMenuKey.update((k) => (k === key ? null : key));
+    this.openStatusKey.set(null);
+  }
+
+  toggleStatus(column: string, index: number, event: Event) {
+    event.stopPropagation();
+    const key = `status-${column}-${index}`;
+    this.openStatusKey.update((k) => (k === key ? null : key));
+    this.openMenuKey.set(null);
+  }
+
+  selectStatus(fromColumn: string, toColumn: string, taskIndex: number, event: Event) {
+    event.stopPropagation();
+    this.openStatusKey.set(null);
+    if (toColumn !== fromColumn) {
+      this.taskAction.emit({ type: 'move', column: fromColumn, taskIndex, toColumn });
+    }
   }
 
   getBadge(name: string, fallbackIndex: number) {

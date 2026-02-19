@@ -17,7 +17,7 @@
     "build:all": "nx run-many --target=build --all",
     "graph": "nx graph",
     "api": "node backend/server.js",
-    "dev": "concurrently \"npm:api\" \"npm:signal\""
+    "dev": "concurrently \"npm:api\" \"npm:ngxs\""
   },
   "private": true,
   "dependencies": {

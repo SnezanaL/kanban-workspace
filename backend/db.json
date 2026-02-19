@@ -156,6 +156,17 @@
               ]
             },
             {
+              "title": "Integrate analytics tracking",
+              "description": "Add analytics instrumentation (PostHog/GA4) to capture pageviews and board interactions. Track events: task.create, task.update, task.move, task.delete, board.switch. Include brief docs and QA steps.",
+              "status": "Doing",
+              "subtasks": [
+                {
+                  "title": "Add SDK and environment variables",
+                  "isCompleted": false
+                }
+              ]
+            },
+            {
               "title": "Conduct 5 wireframe tests",
               "description": "Ensure the layout continues to make sense and we have strong buy-in from potential users.",
               "status": "Doing",
@@ -167,17 +178,6 @@
                   "title": "Complete 5 wireframe prototype tests",
                   "isCompleted": true,
                   "assigneeId": 1
-                }
-              ]
-            },
-            {
-              "title": "Integrate analytics tracking",
-              "description": "Add analytics instrumentation (PostHog/GA4) to capture pageviews and board interactions. Track events: task.create, task.update, task.move, task.delete, board.switch. Include brief docs and QA steps.",
-              "status": "Doing",
-              "subtasks": [
-                {
-                  "title": "Add SDK and environment variables",
-                  "isCompleted": false
                 }
               ]
             }

@@ -92,11 +92,13 @@ export interface TaskSavedEvent {
       <!-- Column (status) -->
       <label class="flex flex-col gap-1 text-sm font-medium text-gray-700 dark:text-dark-200">
         Status
-        <select class="input" [(ngModel)]="selectedColumn">
-          @for (col of columns(); track col) {
-          <option [value]="col">{{ col }}</option>
-          }
-        </select>
+        <div class="select-wrapper">
+          <select class="input" [(ngModel)]="selectedColumn">
+            @for (col of columns(); track col) {
+            <option [value]="col">{{ col }}</option>
+            }
+          </select>
+        </div>
       </label>
 
       <!-- Actions -->

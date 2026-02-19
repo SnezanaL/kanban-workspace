@@ -7,6 +7,7 @@ import { Injectable, inject, signal } from '@angular/core';
 export class SidebarService {
   private readonly document = inject(DOCUMENT);
   readonly isDarkMode = signal<boolean>(false);
+  readonly isHidden = signal<boolean>(false);
 
   constructor() {
     const root = this.document?.documentElement;
@@ -20,6 +21,9 @@ export class SidebarService {
         : root?.classList?.contains('dark') ?? false;
 
     this.setDarkMode(initial, false);
+
+    const storedHidden = this.safeGetLocalStorage('kanban-sidebar-hidden');
+    if (storedHidden === 'true') this.isHidden.set(true);
   }
 
   toggleDarkMode(): void {
@@ -35,6 +39,12 @@ export class SidebarService {
     if (persist) this.safeSetLocalStorage('kanban-theme', isDark ? 'dark' : 'light');
   }
 
+  toggleSidebar(): void {
+    const next = !this.isHidden();
+    this.isHidden.set(next);
+    this.safeSetLocalStorage('kanban-sidebar-hidden', next ? 'true' : 'false');
+  }
+
   private safeGetLocalStorage(key: string): string | null {
     try {
       return window.localStorage.getItem(key);
@@ -47,7 +57,7 @@ export class SidebarService {
     try {
       window.localStorage.setItem(key, value);
     } catch {
-      // ignore
+      console.warn('Could not access localStorage to save', { key, value });
     }
   }
 }

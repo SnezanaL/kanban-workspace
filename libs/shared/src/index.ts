@@ -1,5 +1,3 @@
-export * from './lib/kanban-shared/kanban-shared';
-
 // Models
 export * from './lib/models/kanban.models';
 
